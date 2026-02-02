@@ -21,7 +21,6 @@ import org.bson.Document;
 import org.springframework.batch.item.data.MongoItemWriter;
 import org.springframework.data.mongodb.core.MongoOperations;
 import org.springframework.util.Assert;
-
 import uk.ac.ebi.eva.commons.core.models.IVariantSource;
 import uk.ac.ebi.eva.commons.mongodb.entities.VariantSourceMongo;
 
@@ -53,10 +52,10 @@ public class VariantSourceMongoWriter extends MongoItemWriter<IVariantSource> {
     }
 
     private void createIndexes() {
-        IndexOptions indexOptions = new IndexOptions().background(true).unique(true).name(UNIQUE_FILE_INDEX_NAME);
+        IndexOptions indexOptions = new IndexOptions().background(true).unique(true);
         mongoOperations.getCollection(collection).createIndex(
                 new Document(VariantSourceMongo.STUDYID_FIELD, 1).append(VariantSourceMongo.FILEID_FIELD, 1)
-                                                                 .append(VariantSourceMongo.FILENAME_FIELD, 1),
+                        .append(VariantSourceMongo.FILENAME_FIELD, 1),
                 indexOptions);
     }
 
